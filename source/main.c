@@ -210,6 +210,31 @@ int main(int argc, char **argv)
 
     printWithArgs("Time received from server: %s\n", ctime((const time_t *)&tim));
 
+     time_t currentTime;
+    rs = timeGetCurrentTime(TimeType_UserSystemClock, (u64*)&currentTime);
+    if (R_FAILED(rs)) 
+    {
+        printf("timeGetCurrentTime(UserSystemClock) failed with %x\n", rs);
+    }
+    else 
+        printf("timeGetCurrentTime(UserSystemClock) is %s\n", ctime((const time_t *)&currentTime));
+        
+    rs = timeGetCurrentTime(TimeType_NetworkSystemClock, (u64*)&currentTime);
+    if (R_FAILED(rs)) 
+    {
+        printf("timeGetCurrentTime(NetworkSystemClock) failed with %x\n", rs);
+    }
+    else 
+        printf("timeGetCurrentTime(NetworkSystemClock) is %s\n", ctime((const time_t *)&currentTime));
+    
+    rs = timeGetCurrentTime(TimeType_LocalSystemClock, (u64*)&currentTime);
+    if (R_FAILED(rs)) 
+    {
+        printf("timeGetCurrentTime(LocalSystemClock) failed with %x\n", rs);
+    }
+    else 
+        printf("timeGetCurrentTime(LocalSystemClock) is %s\n", ctime((const time_t *)&currentTime));
+ 
     rs = timeSetCurrentTime(TimeType_NetworkSystemClock, (uint64_t)tim);
     if(R_FAILED(rs))
     {
